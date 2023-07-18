@@ -6,9 +6,7 @@
 -Приложите скриншот входящих правил "Группы безопасности" в ЛК Yandex Cloud или скриншот отказа в предоставлении доступа к preview версии.
 ### Ответ:
 ```
-  docker --version
-  Docker version 24.0.4, build 3713ee1
-```
+ ```
 # Задание 2
 - Создайте файл count-vm.tf. Опишите в нем создание двух одинаковых ВМ web-1 и web-2(не web-0 и web-1!), с минимальными параметрами, используя мета-аргумент count loop. - Назначьте ВМ созданную в 1-м задании группу безопасности.
 - Создайте файл for_each-vm.tf. Опишите в нем создание 2 ВМ с именами "main" и "replica" разных по cpu/ram/disk , используя мета-аргумент for_each loop. Используйте для обеих ВМ одну, общую переменную типа list(object({ vm_name=string, cpu=number, ram=number, disk=number })). При желании внесите в переменную все возможные параметры.
@@ -16,6 +14,56 @@
 - Используйте функцию file в local переменной для считывания ключа ~/.ssh/id_rsa.pub и его последующего использования в блоке metadata, взятому из ДЗ №2.
 - Инициализируйте проект, выполните код.
 ### Ответ:
+```
+# count-vm.tf
+resource "yandex_compute_instance" "web" {
+  count = 2
+  name = "web-${count.index + 1}"
+  resources {
+    cores         = var.vmweb_core
+    memory        = var.vmweb_memo
+    core_fraction = var.vmweb_fr
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.id
+    }
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+  metadata = {
+    ssh-keys = "ubuntu:${var.vms_ssh_root_key}"
+  }
+}
+```
+```
+# for_each-vm.tf
+resource "yandex_compute_instance" "custom_vm" {
+  for_each = var.vm_instances
+  name = "custom-${each.key}"
+  resources {
+    cores         = each.value.cpu
+    memory        = each.value.ram
+    core_fraction = 5
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.id
+    }
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+  metadata = {
+    ssh-keys = "ubuntu:${var.vms_ssh_root_key}"
+  }
+  depends_on = [yandex_compute_instance.web]
+}
+```
+![vm]()
 # Задание 3
 - Создайте 3 одинаковых виртуальных диска, размером 1 Гб с помощью ресурса yandex_compute_disk и мета-аргумента count в файле disk_vm.tf .
 - Создайте в том же файле одну ВМ c именем "storage" . Используйте блок dynamic secondary_disk{..} и мета-аргумент for_each для подключения созданных вами дополнительных дисков.
