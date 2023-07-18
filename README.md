@@ -13,7 +13,7 @@
 ВМ из пункта 2.2 должны создаваться после создания ВМ из пункта 2.1.
 - Используйте функцию file в local переменной для считывания ключа ~/.ssh/id_rsa.pub и его последующего использования в блоке metadata, взятому из ДЗ №2.
 - Инициализируйте проект, выполните код.
-### Ответ:
+### Ответ: Все изучила, доступ запросила, сеть создала
 ```
 # count-vm.tf
 resource "yandex_compute_instance" "web" {
@@ -63,7 +63,7 @@ resource "yandex_compute_instance" "custom_vm" {
   depends_on = [yandex_compute_instance.web]
 }
 ```
-![vm]()
+![vm](https://github.com/EVolgina/devops27-tf3/blob/main/4%20vm.PNG)
 # Задание 3
 - Создайте 3 одинаковых виртуальных диска, размером 1 Гб с помощью ресурса yandex_compute_disk и мета-аргумента count в файле disk_vm.tf .
 - Создайте в том же файле одну ВМ c именем "storage" . Используйте блок dynamic secondary_disk{..} и мета-аргумент for_each для подключения созданных вами дополнительных дисков.
