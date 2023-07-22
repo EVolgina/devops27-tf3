@@ -78,7 +78,7 @@ resource "yandex_compute_disk" "data_disk" {
   zone  = var.default_zone
 }
 ```
-![yvm]()
+![yvm](https://github.com/EVolgina/devops27-tf3/blob/main/5vm.PNG)
 ![ydisk]()
 
 # Задание 4
