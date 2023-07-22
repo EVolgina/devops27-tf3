@@ -88,4 +88,4 @@ resource "yandex_compute_disk" "data_disk" {
 - Для общего зачета создайте в вашем GitHub репозитории новую ветку terraform-03. Закомитьте в эту ветку свой финальный код проекта, пришлите ссылку на коммит.
 - Удалите все созданные ресурсы.
   ### Ответ:
-  ![asible]()
+  ![asible](https://github.com/EVolgina/devops27-tf3/blob/main/ansible.PNG)
