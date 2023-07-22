@@ -74,8 +74,12 @@ resource "yandex_compute_disk" "data_disk" {
   count = 3
   name  = "data-disk-${count.index + 1}"
   size  = 1
+  type  = "network-hdd"
+  zone  = var.default_zone
 }
 ```
+![yvm]()
+![ydisk]()
 
 # Задание 4
 - В файле ansible.tf создайте inventory-файл для ansible. Используйте функцию tepmplatefile и файл-шаблон для создания ansible inventory-файла из лекции. Готовый код возьмите из демонстрации к лекции demonstration2. Передайте в него в качестве переменных группы виртуальных машин из задания 2.1, 2.2 и 3.2.(т.е. 5 ВМ)
