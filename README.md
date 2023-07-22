@@ -79,7 +79,7 @@ resource "yandex_compute_disk" "data_disk" {
 }
 ```
 ![yvm](https://github.com/EVolgina/devops27-tf3/blob/main/5vm.PNG)
-![ydisk]()
+![ydisk](https://github.com/EVolgina/devops27-tf3/blob/main/ydisk.PNG)
 
 # Задание 4
 - В файле ansible.tf создайте inventory-файл для ansible. Используйте функцию tepmplatefile и файл-шаблон для создания ansible inventory-файла из лекции. Готовый код возьмите из демонстрации к лекции demonstration2. Передайте в него в качестве переменных группы виртуальных машин из задания 2.1, 2.2 и 3.2.(т.е. 5 ВМ)
