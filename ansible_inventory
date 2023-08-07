@@ -1,0 +1,13 @@
+[webservers]
+web-1
+web-2
+
+[databases]
+db-instance
+db-instance2
+db-instance3
+
+[storage]
+storage1
+storage2
+
